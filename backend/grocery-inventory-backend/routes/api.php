@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\ItemController;
 use App\Http\Controllers\Api\LookupController;
 use App\Http\Controllers\Api\SubcategoryController;
@@ -31,6 +32,8 @@ Route::middleware('auth:api')->group(function (): void {
     Route::apiResource('items', ItemController::class);
 
     Route::get('/items/{item}/movements', [ItemController::class, 'movements'])->name('items.movements');
+
+    Route::get('/dashboard/stats', [DashboardController::class, 'stats'])->name('dashboard.stats');
 
     Route::get('/lookups/categories', [LookupController::class, 'categories'])->name('lookups.categories');
     Route::get('/lookups/subcategories', [LookupController::class, 'subcategories'])->name('lookups.subcategories');
