@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\LookupController;
 use App\Http\Controllers\Api\SubcategoryController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\UnitController;
@@ -26,4 +27,9 @@ Route::middleware('auth:api')->group(function (): void {
     Route::apiResource('subcategories', SubcategoryController::class);
     Route::apiResource('units', UnitController::class);
     Route::apiResource('suppliers', SupplierController::class);
+
+    Route::get('/lookups/categories', [LookupController::class, 'categories'])->name('lookups.categories');
+    Route::get('/lookups/subcategories', [LookupController::class, 'subcategories'])->name('lookups.subcategories');
+    Route::get('/lookups/units', [LookupController::class, 'units'])->name('lookups.units');
+    Route::get('/lookups/suppliers', [LookupController::class, 'suppliers'])->name('lookups.suppliers');
 });
