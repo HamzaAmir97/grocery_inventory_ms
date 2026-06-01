@@ -1,5 +1,7 @@
 <?php
 
+use App\Support\ServiceIdentity;
+
 return [
 
     /*
@@ -13,7 +15,9 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', ServiceIdentity::NAME),
+
+    'version' => env('APP_VERSION', ServiceIdentity::VERSION),
 
     /*
     |--------------------------------------------------------------------------

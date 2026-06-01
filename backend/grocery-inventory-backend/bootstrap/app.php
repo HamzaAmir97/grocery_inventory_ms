@@ -3,6 +3,9 @@
 use App\Exceptions\ConflictException;
 use App\Exceptions\DeleteRestrictedException;
 use App\Exceptions\SubcategoryMismatchException;
+use App\Http\Middleware\ApiRequestLogger;
+use App\Http\Middleware\RequestId;
+use App\Http\Middleware\SecurityHeaders;
 use App\Support\ApiResponse;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -30,7 +33,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->redirectGuestsTo(fn (Request $request): ?string => $request->is('api/*') ? null : '/login');
         $middleware->api(append: [
+            RequestId::class,
+            SecurityHeaders::class,
             'throttle:api',
+            ApiRequestLogger::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
