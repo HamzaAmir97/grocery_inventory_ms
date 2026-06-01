@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
+import { AppProviders } from "@/components/providers";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
 const nunito = Nunito({
@@ -22,7 +24,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={nunito.variable}>
-      <body>{children}</body>
+      <body>
+        <TooltipProvider>
+          <AppProviders>{children}</AppProviders>
+        </TooltipProvider>
+      </body>
     </html>
   );
 }
