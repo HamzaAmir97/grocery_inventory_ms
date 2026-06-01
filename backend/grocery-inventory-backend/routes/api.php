@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\ItemController;
 use App\Http\Controllers\Api\LookupController;
+use App\Http\Controllers\Api\StatusController;
 use App\Http\Controllers\Api\SubcategoryController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\UnitController;
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/auth/login', [AuthController::class, 'login'])
     ->middleware('throttle:login')
     ->name('auth.login');
+Route::get('/status', [StatusController::class, 'show'])->name('status.show');
 
 Route::middleware('auth:api')->group(function (): void {
     Route::get('/auth/me', [AuthController::class, 'me'])->name('auth.me');
