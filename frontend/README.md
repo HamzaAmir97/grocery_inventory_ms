@@ -25,6 +25,17 @@ The Next.js admin dashboard for the Grocery Inventory Management System.
 
 The frontend provides a focused admin workspace for tracking grocery stock, reviewing dashboard metrics, managing inventory records, and maintaining database-backed settings. It uses the Next.js App Router, typed API contracts, TanStack Query for server state, and a centralized Axios client for authenticated backend communication.
 
+## Server Startup Banner
+
+Running the server prints a branded, unified CLI banner with live service details — environment, local and network URLs, and the API base. It matches the backend banner for a consistent developer experience.
+
+![Frontend dev server banner](./public/readme/cli-frontend.png)
+
+```bash
+npm run dev     # development
+npm run start   # production (after npm run build)
+```
+
 ## Feature Highlights
 
 - Protected login flow and authenticated dashboard layout.
