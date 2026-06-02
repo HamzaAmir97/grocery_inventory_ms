@@ -11,6 +11,7 @@ import { Input as ShadcnInput } from "@/components/ui/input";
 import { useLoginMutation } from "@/hooks/auth";
 import { validateLogin } from "@/lib/auth/schemas";
 import type { LoginCredentials } from "@/types";
+import { Globe2, WebcamIcon } from "lucide-react";
 
 export function LoginForm() {
   const router = useRouter();
@@ -132,7 +133,7 @@ export function LoginForm() {
           </form>
 
           <p className="login-footnote">
-            Need an admin account? <span>Contact your workspace owner</span>
+            Need an admin account? <br /> <div className="flex items-center gap-2 justify-center "> <p className="login-footnote-text">Contact the developer at:</p>  <a href="https://hamzahamir.site" target="_blank" rel="noopener noreferrer"><Globe2 size={16} /></a>  </div>
           </p>
         </div>
       </section>
