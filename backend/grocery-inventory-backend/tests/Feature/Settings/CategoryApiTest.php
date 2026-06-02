@@ -22,8 +22,8 @@ it('lists, searches, paginates, creates, shows, updates, and deletes categories'
         ->assertJsonPath('meta.per_page', 3);
 
     $this->withHeaders($this->headers)->getJson('/api/categories?per_page=999')
-        ->assertSuccessful()
-        ->assertJsonPath('meta.per_page', 100);
+        ->assertUnprocessable()
+        ->assertJsonValidationErrors('per_page');
 
     $this->withHeaders($this->headers)->getJson('/api/categories?search=Dair')
         ->assertSuccessful()

@@ -15,38 +15,36 @@ class UpdateItem
     public function execute(Item $item, array $data, ?int $userId): Item
     {
         return DB::transaction(function () use ($item, $data, $userId): Item {
-            $previousStock = (int) $item->stock_quantity;
+            // Lock and re-read the row inside the transaction so concurrent edits can't
+            // compute the stock delta from a stale snapshot (lost-update / ledger drift).
+            $locked = Item::query()->whereKey($item->id)->lockForUpdate()->firstOrFail();
+
+            $previousStock = (int) $locked->stock_quantity;
             $submittedVersion = array_key_exists('version', $data) ? (int) $data['version'] : null;
             unset($data['version']);
 
-            if ($submittedVersion !== null) {
-                $affected = Item::query()
-                    ->whereKey($item->id)
-                    ->where('version', $submittedVersion)
-                    ->update(array_merge($data, ['version' => $submittedVersion + 1]));
-
-                if ($affected === 0) {
-                    throw new ConflictException;
-                }
-
-                $item = Item::query()->findOrFail($item->id);
-            } else {
-                $item->fill($data);
-                $item->version = (int) $item->version + 1;
-                $item->save();
+            // Optimistic-lock check (when the client opts in by sending the version).
+            if ($submittedVersion !== null && $submittedVersion !== (int) $locked->version) {
+                throw new ConflictException;
             }
 
-            $newStock = (int) $item->stock_quantity;
+            // Always go through save() so the model's saving() guards (e.g. the
+            // category/subcategory consistency check) run on every update path.
+            $locked->fill($data);
+            $locked->version = (int) $locked->version + 1;
+            $locked->save();
+
+            $newStock = (int) $locked->stock_quantity;
             if ($newStock !== $previousStock) {
                 StockMovement::query()->create([
-                    'item_id' => $item->id,
+                    'item_id' => $locked->id,
                     'user_id' => $userId,
                     'delta' => $newStock - $previousStock,
                     'reason' => StockMovement::REASON_MANUAL_EDIT,
                 ]);
             }
 
-            return $item;
+            return $locked;
         });
     }
 }

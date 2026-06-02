@@ -31,7 +31,19 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->trustProxies(at: '*');
+        // Trust only proxies on private networks (Coolify/Traefik run on the Docker
+        // bridge). This keeps HTTPS/host detection working behind the reverse proxy
+        // while preventing public clients from spoofing X-Forwarded-* (e.g. to forge
+        // throttle keys via X-Forwarded-For).
+        $middleware->trustProxies(at: [
+            '10.0.0.0/8',
+            '172.16.0.0/12',
+            '192.168.0.0/16',
+            '127.0.0.1',
+        ], headers: Request::HEADER_X_FORWARDED_FOR
+            | Request::HEADER_X_FORWARDED_HOST
+            | Request::HEADER_X_FORWARDED_PORT
+            | Request::HEADER_X_FORWARDED_PROTO);
         $middleware->redirectGuestsTo(fn (Request $request): ?string => $request->is('api/*') ? null : '/login');
         $middleware->api(append: [
             RequestId::class,
@@ -135,8 +147,17 @@ return Application::configure(basePath: dirname(__DIR__))
             $class = substr($sqlstate, 0, 2);
 
             if ($class === '23') {
+                // Unique violations (23505) and FK restrictions (23503) are conflicts,
+                // not field-level validation errors — map them to 409.
+                if ($sqlstate === '23505') {
+                    return ApiResponse::conflict('A record with these details already exists.');
+                }
+
+                if ($sqlstate === '23503') {
+                    return ApiResponse::conflict('This action conflicts with related records.');
+                }
+
                 $message = match ($sqlstate) {
-                    '23503' => 'This action would break a relationship between records.',
                     '23502' => 'A required field is missing.',
                     '23514' => 'A submitted value violates a data integrity rule.',
                     default => 'The submitted data conflicts with an existing record.',

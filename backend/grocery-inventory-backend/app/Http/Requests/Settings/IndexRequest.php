@@ -41,21 +41,13 @@ class IndexRequest extends FormRequest
             ])],
             'sort_dir' => ['sometimes', 'string', Rule::in(['asc', 'desc'])],
             'page' => ['sometimes', 'integer', 'min:1'],
-            'per_page' => ['sometimes', 'integer', 'min:1'],
+            'per_page' => ['sometimes', 'integer', 'min:1', 'max:100'],
         ];
     }
 
     protected function prepareForValidation(): void
     {
         $this->trimAllStrings();
-
-        // Soft-cap per_page to keep the existing UX (silent cap at 100).
-        if ($this->has('per_page')) {
-            $value = (int) $this->input('per_page');
-            if ($value > 100) {
-                $this->merge(['per_page' => 100]);
-            }
-        }
     }
 
     protected function failedValidation(Validator $validator): void
