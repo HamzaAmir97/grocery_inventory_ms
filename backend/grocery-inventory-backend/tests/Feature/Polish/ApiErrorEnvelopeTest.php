@@ -59,12 +59,11 @@ it('returns predictable envelopes for common recoverable api failures', function
         Category::query()->create(['name' => 'Dairy']);
     });
 
-    $this->withHeaders($headers)->postJson('/api/polish-duplicate-category')
-        ->assertUnprocessable()
-        ->assertJsonPath('success', false)
-        ->assertJsonPath('message', 'Validation failed.')
-        ->assertJsonPath('errors.database.0', 'The submitted data conflicts with an existing record.')
-        ->assertJsonMissingPath('data');
+    assertPolishFailureEnvelope(
+        $this->withHeaders($headers)->postJson('/api/polish-duplicate-category'),
+        409,
+        'A record with these details already exists.',
+    );
 
     assertPolishFailureEnvelope(
         $this->withHeaders($headers)->postJson('/api/dashboard/stats'),

@@ -11,7 +11,8 @@ it('logs api method url status response time ip and timestamp', function () {
             return str_contains($message, 'API GET /api/status 200 OK')
                 && str_ends_with($message, 'ms')
                 && $context['method'] === 'GET'
-                && str_ends_with($context['url'], '/api/status')
+                && $context['path'] === '/api/status'
+                && array_key_exists('query', $context)
                 && $context['status'] === 200
                 && is_int($context['duration_ms'])
                 && array_key_exists('ip', $context)
