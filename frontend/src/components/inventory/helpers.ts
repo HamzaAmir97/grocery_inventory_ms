@@ -2,7 +2,14 @@ import type { ItemFilters, ItemFormValues } from "@/types";
 
 export type InventorySortField = NonNullable<ItemFilters["sort_by"]>;
 
-export const STEPS = ["Basic information", "Classification", "Pricing & stock", "Review & confirm"] as const;
+export const STEP_META = [
+  { label: "Basic information", shortLabel: "Basic Info", title: "Basic Information", subtitle: "Name & status" },
+  { label: "Classification", shortLabel: "Classification", title: "Classification", subtitle: "Category & supplier" },
+  { label: "Pricing & stock", shortLabel: "Pricing & Stock", title: "Pricing & Stock", subtitle: "Price & quantities" },
+  { label: "Review & confirm", shortLabel: "Review", title: "Review & Confirm", subtitle: "Confirm & save" },
+] as const;
+
+export const STEPS = STEP_META.map((step) => step.label);
 
 export const EMPTY_VALUES: ItemFormValues = {
   name: "",

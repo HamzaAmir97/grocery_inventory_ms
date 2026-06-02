@@ -13,8 +13,8 @@ export function AuthGuard({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!AUTH_CHECK_ENABLED || Boolean(getAuthToken())) {
-      setReady(true);
-      return;
+      const timeoutId = window.setTimeout(() => setReady(true), 0);
+      return () => window.clearTimeout(timeoutId);
     }
 
     router.replace(ROUTES.login);

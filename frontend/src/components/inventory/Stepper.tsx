@@ -1,20 +1,23 @@
 import type { ItemFormValues } from "@/types";
-import { STEPS } from "./helpers";
+import { IconCheck } from "@/components/shared";
+import { STEP_META } from "./helpers";
 
 export function Stepper({ step, errors }: { step: number; errors: Partial<Record<keyof ItemFormValues, string>> }) {
   const hasErrors = Object.keys(errors).length > 0;
   return (
-    <div className="stepper">
-      {STEPS.map((label, index) => {
+    <nav className="wizard-stepper" aria-label="Inventory item progress">
+      {STEP_META.map((item, index) => {
         const state = index < step ? "done" : index === step ? (hasErrors ? "error" : "active") : "todo";
         return (
-          <div key={label} className="step" style={{ flex: index < STEPS.length - 1 ? 1 : "0 0 auto" }}>
-            <span className={`step-circle ${state}`}>{state === "done" ? "✓" : index + 1}</span>
-            <span className={`step-label ${index === step ? "active" : index > step ? "todo" : ""} hidden md:inline`}>{label}</span>
-            {index < STEPS.length - 1 ? <span className={`step-line ${index < step ? "done" : ""}`} /> : null}
+          <div key={item.label} className={`wizard-step ${state} ${index < step ? "connector-done" : ""}`} aria-current={index === step ? "step" : undefined}>
+            <span className={`wizard-step-circle ${state}`}>
+              {state === "done" ? <IconCheck size={14} stroke={2.5} /> : index + 1}
+            </span>
+            <span className={`wizard-step-label ${state}`}>{item.shortLabel}</span>
+            <span className="wizard-step-subtitle">{item.subtitle}</span>
           </div>
         );
       })}
-    </div>
+    </nav>
   );
 }
