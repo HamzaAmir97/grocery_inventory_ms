@@ -50,6 +50,12 @@ class ItemIndexRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->trimAllStrings();
+
+        if ($this->has('low_stock')) {
+            $this->merge([
+                'low_stock' => filter_var($this->input('low_stock'), FILTER_VALIDATE_BOOLEAN),
+            ]);
+        }
     }
 
     protected function failedValidation(Validator $validator): void
