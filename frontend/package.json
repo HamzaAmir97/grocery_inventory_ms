@@ -3,8 +3,10 @@
   "version": "0.4.2",
   "private": true,
   "scripts": {
+    "predev": "node scripts/banner.mjs dev",
     "dev": "next dev",
     "build": "next build",
+    "prestart": "node scripts/banner.mjs start",
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",

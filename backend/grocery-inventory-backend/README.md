@@ -27,6 +27,16 @@ The backend is the source of truth for the inventory platform. It manages JWT au
 
 The API exposes canonical `/api/*` endpoints and versioned `/api/v1/*` aliases so the frontend can use stable routes while future clients can migrate to a versioned surface.
 
+## Server Startup Banner
+
+`php artisan inventory:serve` boots the API behind a branded, unified CLI banner that matches the frontend — with live service details, the API base, and the Swagger documentation URL.
+
+![Backend API server banner](./docs/assets/cli-backend.png)
+
+```bash
+php artisan inventory:serve
+```
+
 ## Feature Highlights
 
 - JWT login, current-user lookup, logout, and token refresh.

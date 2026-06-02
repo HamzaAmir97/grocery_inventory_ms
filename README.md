@@ -15,13 +15,41 @@ A full-stack grocery inventory platform for stock control, supplier management, 
 
 </div>
 
-![Dashboard overview](./frontend/public/readme/dashboard-overview.png)
+<!-- ![Dashboard overview](./frontend/public/readme/dashboard-overview.png) -->
 
 ## Overview
 
 Grocery Inventory Management System combines a polished Next.js admin dashboard with a Laravel REST API. The frontend focuses on fast inventory workflows and clear reporting. The backend owns authentication, validation, database integrity, API contracts, lookup data, and operational safety.
 
 Business dropdowns such as categories, subcategories, units, and suppliers are loaded from the database through API endpoints. This keeps the admin experience flexible and keeps business data out of the UI code.
+
+## Server Startup Experience
+
+Both services boot behind a single, unified CLI banner — the same box layout, gradient palette, and brand identity across the stack, rendered with raw ANSI so it never touches the project lockfiles.
+
+### Frontend
+
+**Next.js 16 · React 19 · TypeScript · Tailwind CSS · TanStack Query** — the admin dashboard with protected routes, fast inventory workflows, settings screens, and dashboard charts. The dev and production servers print a branded banner with live environment, local and network URLs, and the API base.
+
+![Frontend dev server banner](./frontend/public/readme/cli-frontend.png)
+
+```bash
+cd frontend && npm run dev
+```
+
+[![Explore the Frontend](https://img.shields.io/badge/Explore%20the%20Frontend%20%E2%86%92-2563EB?style=for-the-badge&logo=nextdotjs&logoColor=white)](./frontend/README.md)
+
+### Backend
+
+**Laravel 13 · PHP 8.4 · PostgreSQL · JWT · Swagger / OpenAPI** — the REST API owning authentication, validation, persistence, stock movement history, dashboard aggregation, and documented contracts. `inventory:serve` boots the API behind the matching banner, with the API base and Swagger docs URL.
+
+![Backend API server banner](./frontend/public/readme/cli-backend.png)
+
+```bash
+cd backend/grocery-inventory-backend && php artisan inventory:serve
+```
+
+[![Explore the Backend](https://img.shields.io/badge/Explore%20the%20Backend%20%E2%86%92-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](./backend/grocery-inventory-backend/README.md)
 
 ## Main Capabilities
 
@@ -35,12 +63,6 @@ Business dropdowns such as categories, subcategories, units, and suppliers are l
 - Swagger/OpenAPI documentation for backend endpoints.
 - GitHub Actions quality workflow for backend and frontend validation.
 
-## Application Areas
-
-| Area | Description | Read more |
-| --- | --- | --- |
-| Frontend | Next.js dashboard, protected routes, React Query data flow, inventory forms, settings screens, and dashboard charts. | [Frontend README](./frontend/README.md) |
-| Backend | Laravel API, JWT auth, PostgreSQL schema, dashboard services, inventory actions, settings endpoints, and OpenAPI docs. | [Backend README](./backend/grocery-inventory-backend/README.md) |
 
 ## Architecture
 
