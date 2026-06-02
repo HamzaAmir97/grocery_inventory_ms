@@ -9,21 +9,14 @@ it('renders the branded startup panel without starting the server in preview mod
     $plainOutput = preg_replace('/\x1b\[[0-9;]*m/', '', $output);
 
     expect($exitCode)->toBe(0)
-        ->and($output)->toContain("\033[1;38;2;")
-        ->and($plainOutput)->toContain('/  _/___ _')
-        ->and($plainOutput)->toContain('/ ____/ /___')
-        ->and($plainOutput)->toContain('Inventory Management System - Smart Grocery Backend')
-        ->and($plainOutput)->toContain('Inventory Cloud AI Server')
-        ->and($plainOutput)->toContain('Laravel REST API + PostgreSQL + Swagger + JWT')
-        ->and($plainOutput)->toContain('Smart Grocery Inventory Management API')
-        ->and($plainOutput)->toContain('Welcome to Inventory Cloud AI')
-        ->and($plainOutput)->toContain('Server URL')
+        ->and($plainOutput)->toContain('I N V E N T O R Y')
+        ->and($plainOutput)->toContain('Grocery Inventory Management System')
+        ->and($plainOutput)->toContain('Backend · Laravel')
+        ->and($plainOutput)->toContain('Local')
         ->and($plainOutput)->toContain('http://127.0.0.1:8000')
-        ->and($plainOutput)->toContain('Swagger Docs')
+        ->and($plainOutput)->toContain('Docs')
         ->and($plainOutput)->toContain('http://127.0.0.1:8000/api/documentation')
-        ->and($plainOutput)->toContain('[OK] Core API Loaded')
-        ->and($plainOutput)->toContain('[OK] Request Logger Active')
-        ->and($plainOutput)->toContain('Live Server Logs')
+        ->and($plainOutput)->toContain('API server starting')
         ->and($plainOutput)->toContain('Preview mode: server process was not started.');
 });
 
@@ -33,11 +26,11 @@ it('uses custom host and port in the branded startup panel', function () {
         '--port' => '8080',
         '--no-server' => true,
     ]);
-    $output = Artisan::output();
+    $plainOutput = preg_replace('/\x1b\[[0-9;]*m/', '', Artisan::output());
 
     expect($exitCode)->toBe(0)
-        ->and($output)->toContain('http://0.0.0.0:8080')
-        ->and($output)->toContain('http://0.0.0.0:8080/api/documentation');
+        ->and($plainOutput)->toContain('http://0.0.0.0:8080')
+        ->and($plainOutput)->toContain('http://0.0.0.0:8080/api/documentation');
 });
 
 it('keeps swagger server generation tied to the selected server url', function () {

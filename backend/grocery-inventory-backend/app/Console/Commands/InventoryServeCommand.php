@@ -7,6 +7,7 @@ use Illuminate\Console\Attributes\Description;
 use Illuminate\Console\Attributes\Signature;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
 /**
@@ -75,11 +76,22 @@ class InventoryServeCommand extends Command
     }
 
     /**
-     * Write raw output straight to STDOUT, bypassing Symfony's OutputFormatter
-     * (which strips box-drawing glyphs and collapses whitespace).
+     * Write raw output, bypassing Symfony's OutputFormatter (which interprets
+     * `<...>` tags and would mangle box-drawing glyphs and ANSI escapes).
+     *
+     * Routing through the command's output (when available) keeps the banner
+     * capturable by `Artisan::output()` in tests while still preserving the
+     * exact characters via OUTPUT_RAW. When the command is invoked outside a
+     * normal run (e.g. via reflection) we fall back to STDOUT.
      */
     private function write(string $text): void
     {
+        if (isset($this->output)) {
+            $this->output->getOutput()->write($text, false, OutputInterface::OUTPUT_RAW);
+
+            return;
+        }
+
         fwrite(STDOUT, $text);
     }
 
@@ -108,7 +120,11 @@ class InventoryServeCommand extends Command
             return false;
         }
 
-        return function_exists('stream_isatty') ? @stream_isatty(STDOUT) : true;
+        if (isset($this->output)) {
+            return $this->output->getOutput()->isDecorated();
+        }
+
+        return function_exists('stream_isatty') ? @stream_isatty(STDOUT) : false;
     }
 
     /**
