@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Http\Resources\DashboardItemResource;
+use App\Models\Category;
 use App\Models\Item;
+use App\Models\Supplier;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\DB;
 
@@ -17,11 +19,11 @@ class DashboardService
         $now = CarbonImmutable::now();
         $counts = DB::selectOne(
             'SELECT
-                (SELECT COUNT(*) FROM items) AS total_items,
+                (SELECT COUNT(*) FROM items WHERE deleted_at IS NULL) AS total_items,
                 (SELECT COUNT(*) FROM categories) AS total_categories,
                 (SELECT COUNT(*) FROM suppliers) AS total_suppliers,
-                (SELECT COUNT(*) FROM items WHERE stock_quantity <= low_stock_threshold) AS low_stock_items,
-                (SELECT COALESCE(SUM(price * stock_quantity), 0) FROM items)::text AS total_stock_value'
+                (SELECT COUNT(*) FROM items WHERE deleted_at IS NULL AND stock_quantity <= low_stock_threshold) AS low_stock_items,
+                (SELECT COALESCE(SUM(price * stock_quantity), 0) FROM items WHERE deleted_at IS NULL)::text AS total_stock_value'
         );
 
         $recent = Item::query()
@@ -42,9 +44,11 @@ class DashboardService
 
         $inventoryGrowth = $this->inventoryGrowth($now);
         $categoryBreakdown = $this->categoryBreakdown();
-        $newItemsThisMonth = (int) Item::query()
-            ->whereBetween('created_at', [$now->startOfMonth(), $now->endOfMonth()])
-            ->count();
+
+        $monthRange = [$now->startOfMonth(), $now->endOfMonth()];
+        $newItemsThisMonth = (int) Item::query()->whereBetween('created_at', $monthRange)->count();
+        $newCategoriesThisMonth = (int) Category::query()->whereBetween('created_at', $monthRange)->count();
+        $newSuppliersThisMonth = (int) Supplier::query()->whereBetween('created_at', $monthRange)->count();
 
         return [
             'total_items' => (int) $counts->total_items,
@@ -64,14 +68,14 @@ class DashboardService
                     'key' => 'categories',
                     'label' => 'Categories',
                     'value' => (int) $counts->total_categories,
-                    'badge' => '+'.(int) $counts->total_categories,
+                    'badge' => '+'.$newCategoriesThisMonth,
                     'badge_tone' => 'success',
                 ],
                 [
                     'key' => 'suppliers',
                     'label' => 'Suppliers',
                     'value' => (int) $counts->total_suppliers,
-                    'badge' => '+'.(int) $counts->total_suppliers,
+                    'badge' => '+'.$newSuppliersThisMonth,
                     'badge_tone' => 'success',
                 ],
                 [
@@ -95,15 +99,23 @@ class DashboardService
      */
     private function inventoryGrowth(CarbonImmutable $now): array
     {
+        $startOfYear = $now->startOfYear();
+        $endOfYear = $now->endOfYear();
+
+        $countsByMonth = Item::query()
+            ->whereBetween('created_at', [$startOfYear, $endOfYear])
+            ->toBase()
+            ->selectRaw('CAST(EXTRACT(MONTH FROM created_at) AS INTEGER) AS month, COUNT(*) AS aggregate')
+            ->groupBy('month')
+            ->pluck('aggregate', 'month');
+
         return collect(range(1, 12))
-            ->map(function (int $month) use ($now): array {
+            ->map(function (int $month) use ($now, $countsByMonth): array {
                 $date = CarbonImmutable::create($now->year, $month, 1, 0, 0, 0, $now->timezone);
 
                 return [
                     'month' => $date->format('M'),
-                    'count' => (int) Item::query()
-                        ->whereBetween('created_at', [$date->startOfMonth(), $date->endOfMonth()])
-                        ->count(),
+                    'count' => (int) ($countsByMonth[$month] ?? 0),
                 ];
             })
             ->all();
