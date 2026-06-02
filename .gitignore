@@ -43,6 +43,8 @@ frontend/.next/
 frontend/out/
 frontend/.env
 frontend/.env.local
+frontend/.tmp-*/
+frontend/.tmp-*.png
 
 # Laravel
 backend/grocery-inventory-backend/vendor/
