@@ -167,23 +167,20 @@ Backend validation includes dependency checks, PostgreSQL migrations, database s
 
 Both backend and frontend checks must pass; PRs are blocked until all validations succeed.
 
-**When a check fails:**
+**When a check fails — "Review required" (blocking merge):**
 
 ![CI Quality Gate - Checks Failed](./frontend/public/readme/ci-quality-gate-checks.png)
 
-- The PR shows "Review required" (blocking merge).
-- Details list which checks failed and why.
+- The PR shows "Review required" with a red ✗ badge.
+- "Some checks were not successful" lists failed validations.
+- "Merging is blocked" prevents accidental merge until fixed.
 - The author fixes the issue, pushes new commits, and checks re-run automatically.
 - Once fixed, the same PR updates to show all checks passing.
 
-**When all checks pass:**
+**When all checks pass — "All checks have passed" (ready to merge):**
 
 ![CI Quality Gate - All Checks Passed](./frontend/public/readme/ci-quality-gate-checks1.png)
 
-- The PR shows "All checks have passed" (green checkmarks).
-- Both backend and frontend validations succeeded.
-- "No conflicts with base branch" allows immediate merge.
-- Click "Merge pull request" to move changes to `main`.
 
 ### CI Checks Included
 
