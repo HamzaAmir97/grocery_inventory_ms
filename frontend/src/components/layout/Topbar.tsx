@@ -42,7 +42,7 @@ export function Topbar({
         <ShadcnButton asChild className="topbar-add">
           <Link href={ROUTES.inventoryNew}>
             <IconPlus size={16} />
-            Add item
+            <span className="tb-add-label">Add item</span>
           </Link>
         </ShadcnButton>
 

@@ -736,19 +736,22 @@ input, select, textarea { font-family: inherit; }
   .topbar-title { font-size: 20px; }
   .topbar-subtitle { font-size: 13px; }
   .topbar-actions {
+    order: -1;
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 36px auto auto;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
     gap: 10px;
   }
   .topbar-search-wrap {
-    width: 100%;
+    flex: 1 1 auto;
+    width: auto;
     min-width: 0;
   }
 }
 @media (max-width: 560px) {
-  .topbar-actions { grid-template-columns: 1fr 36px auto; }
-  .topbar-add { width: 36px; padding: 0; font-size: 0; gap: 0; }
+  .topbar-add { width: 36px; padding: 0; gap: 0; }
+  .topbar-add .tb-add-label { display: none; }
   .topbar-user-pill { padding-right: 8px; }
   .topbar-user-pill span:not(.avatar) { display: none; }
   .page-shell { padding: 16px; }
@@ -1613,27 +1616,21 @@ input, select, textarea { font-family: inherit; }
 @media (max-width: 980px) {
   .login-shell {
     grid-template-columns: 1fr;
+    min-height: 100dvh;
   }
+  /* The marketing hero is decorative; on small screens the form card carries the
+     brand (logo + title), so we drop the hero and let the form fill the viewport. */
   .login-hero-panel {
-    min-height: 360px;
+    display: none;
   }
-  .login-hero-copy h1 {
-    max-width: 11ch;
+  .login-form-panel {
+    min-height: 100dvh;
+    padding: 32px 24px;
   }
 }
 @media (max-width: 640px) {
-  .login-hero-panel {
-    min-height: 320px;
-    padding: 28px 22px 32px;
-  }
-  .login-hero-copy h1 {
-    font-size: 38px;
-  }
-  .login-hero-text {
-    font-size: 15px;
-  }
   .login-form-panel {
-    padding: 18px;
+    padding: 20px 16px;
   }
   .login-card {
     padding: 24px 20px 20px;

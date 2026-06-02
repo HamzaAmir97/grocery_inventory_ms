@@ -9,13 +9,16 @@ const AUTH_CHECK_ENABLED = true;
 
 export function AuthGuard({ children }: { children: ReactNode }) {
   const router = useRouter();
-  const [ready] = useState(() => !AUTH_CHECK_ENABLED || Boolean(getAuthToken()));
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (AUTH_CHECK_ENABLED && !ready) {
-      router.replace(ROUTES.login);
+    if (!AUTH_CHECK_ENABLED || Boolean(getAuthToken())) {
+      setReady(true);
+      return;
     }
-  }, [ready, router]);
+
+    router.replace(ROUTES.login);
+  }, [router]);
 
   if (!ready) {
     return (
