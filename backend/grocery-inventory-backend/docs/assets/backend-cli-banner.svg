@@ -1,0 +1,23 @@
+<svg width="1440" height="520" viewBox="0 0 1440 520" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Backend CLI workflow</title>
+  <desc id="desc">Terminal-style backend workflow for Laravel, PostgreSQL, JWT, migrations, Swagger, and tests.</desc>
+  <rect width="1440" height="520" rx="28" fill="#0F172A"/>
+  <rect x="64" y="54" width="1312" height="408" rx="18" fill="#111827" stroke="#334155" stroke-width="2"/>
+  <rect x="64" y="54" width="1312" height="56" rx="18" fill="#1E293B"/>
+  <circle cx="98" cy="82" r="8" fill="#FB7185"/>
+  <circle cx="126" cy="82" r="8" fill="#FBBF24"/>
+  <circle cx="154" cy="82" r="8" fill="#34D399"/>
+  <text x="190" y="90" fill="#CBD5E1" font-family="Consolas, 'Courier New', monospace" font-size="20" font-weight="700">grocery-inventory-backend</text>
+  <text x="94" y="158" fill="#22C55E" font-family="Consolas, 'Courier New', monospace" font-size="24" font-weight="700">$ php artisan migrate:fresh --seed</text>
+  <text x="126" y="196" fill="#CBD5E1" font-family="Consolas, 'Courier New', monospace" font-size="22">Dropped all tables, migrated schema, seeded admin and inventory records.</text>
+  <text x="94" y="250" fill="#38BDF8" font-family="Consolas, 'Courier New', monospace" font-size="24" font-weight="700">$ php artisan l5-swagger:generate</text>
+  <text x="126" y="288" fill="#CBD5E1" font-family="Consolas, 'Courier New', monospace" font-size="22">OpenAPI document generated for /docs and /api/documentation.</text>
+  <text x="94" y="342" fill="#F97316" font-family="Consolas, 'Courier New', monospace" font-size="24" font-weight="700">$ php artisan serve --host=0.0.0.0 --port=8000</text>
+  <text x="126" y="380" fill="#CBD5E1" font-family="Consolas, 'Courier New', monospace" font-size="22">Laravel API ready: auth, dashboard, inventory, settings, lookups.</text>
+  <rect x="1090" y="154" width="208" height="52" rx="12" fill="#064E3B"/>
+  <text x="1120" y="188" fill="#D1FAE5" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="800">PostgreSQL</text>
+  <rect x="1090" y="238" width="208" height="52" rx="12" fill="#7C2D12"/>
+  <text x="1120" y="272" fill="#FFEDD5" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="800">JWT Auth</text>
+  <rect x="1090" y="322" width="208" height="52" rx="12" fill="#164E63"/>
+  <text x="1120" y="356" fill="#E0F2FE" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="800">Swagger</text>
+</svg>

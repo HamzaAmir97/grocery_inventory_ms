@@ -1,94 +1,52 @@
 <p align="right">
   <a href="../README.md"><strong>Back to Home</strong></a>
+  &nbsp;|&nbsp;
+  <a href="../backend/grocery-inventory-backend/README.md"><strong>Backend API</strong></a>
 </p>
 
 <div align="center">
 
 # Grocery Inventory Frontend
 
-The Next.js dashboard client for the Grocery Inventory Management System.
+The Next.js admin dashboard for the Grocery Inventory Management System.
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178C6?logo=typescript)](https://www.typescriptlang.org/)
 [![TanStack Query](https://img.shields.io/badge/TanStack_Query-Server_State-FF4154)](https://tanstack.com/query)
 [![Axios](https://img.shields.io/badge/Axios-API_Client-5A29E4)](https://axios-http.com/)
-[![CI Quality Gate](https://github.com/HamzaAmir97/inventory_managment_system_test/actions/workflows/ci.yml/badge.svg)](https://github.com/HamzaAmir97/inventory_managment_system_test/actions/workflows/ci.yml)
+[![CI Quality Gate](https://github.com/HamzaAmir97/inventory_managment_system/actions/workflows/ci.yml/badge.svg)](https://github.com/HamzaAmir97/inventory_managment_system/actions/workflows/ci.yml)
 
 </div>
 
-> This frontend is built around a strict API architecture: components use hooks, hooks use feature actions, actions use the shared Axios instance, and endpoint paths live only in `src/lib/api-paths.ts`.
+![Dashboard overview](./public/readme/dashboard-overview.png)
 
----
+## Overview
 
-## Table of Contents
+The frontend provides a focused admin workspace for tracking grocery stock, reviewing dashboard metrics, managing inventory records, and maintaining database-backed settings. It uses the Next.js App Router, typed API contracts, TanStack Query for server state, and a centralized Axios client for authenticated backend communication.
 
-- [Project Purpose](#project-purpose)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Project Structure](#project-structure)
-- [Key Files](#key-files)
-- [Environment Variables](#environment-variables)
-- [Getting Started](#getting-started)
-- [Design Reference](#design-reference)
-- [Routes](#routes)
-- [API Integration](#api-integration)
-- [Data Flow](#data-flow)
-- [Build and Checks](#build-and-checks)
-- [CI/CD Quality Gate](#cicd-quality-gate)
-- [Important Notes](#important-notes)
+## Feature Highlights
 
----
-
-## Project Purpose
-
-The frontend provides the complete admin experience for managing grocery inventory. It is designed to be clean, responsive, easy to review, and connected to a Laravel REST API.
-
-It enables admins to:
-
-- Sign in and access protected dashboard pages
-- Review stock metrics and recent inventory activity
-- Manage inventory items
-- Manage settings data used by dropdowns
-- Work with loading, error, empty, success, and confirmation states
-
----
-
-## Features
-
-- **Protected Dashboard:** Auth guard redirects unauthenticated users to login.
-- **Dashboard Metrics:** Loads API-driven inventory totals, stock value, recent items, and low-stock items.
-- **Inventory CRUD:** List, filter, paginate, create, edit, and delete inventory items.
-- **Settings CRUD:** Manage categories, subcategories, units, and suppliers.
-- **Lookup Hooks:** Dropdowns are powered by database-backed lookup endpoints.
-- **Central API Layer:** All paths, API actions, query keys, options, mutations, and hooks are separated by feature.
-- **Global Axios Handling:** Token injection and 401 redirect logic are centralized.
-- **Typed Contracts:** API responses, entities, filters, and payloads are typed.
-- **Review-Friendly Checks:** Linting, type checking, unit tests, and production builds run locally and in GitHub Actions.
-
----
-
-## Technologies Used
-
-[![Next.js](https://img.shields.io/badge/Next.js-App_Router-black?logo=next.js)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-UI_Runtime-61DAFB?logo=react)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Contracts-3178C6?logo=typescript)](https://www.typescriptlang.org/)
-[![Axios](https://img.shields.io/badge/Axios-HTTP_Client-5A29E4)](https://axios-http.com/)
-[![TanStack Query](https://img.shields.io/badge/TanStack_Query-Queries_and_Mutations-FF4154)](https://tanstack.com/query)
-[![ESLint](https://img.shields.io/badge/ESLint-Code_Quality-4B32C3?logo=eslint)](https://eslint.org/)
-
----
+- Protected login flow and authenticated dashboard layout.
+- Dashboard cards for total items, categories, suppliers, and low-stock status.
+- Inventory growth chart and category distribution summary.
+- Inventory table with filtering, pagination, create, edit, and delete flows.
+- Multi-step inventory form with database-backed category, subcategory, unit, and supplier dropdowns.
+- Settings screens for categories, subcategories, units, and suppliers.
+- Centralized API path registry so endpoint changes are managed in one place.
+- Loading, empty, error, success, and confirmation states across the admin surface.
 
 ## Project Structure
 
 ```txt
 frontend/
-|-- public/                         # Static assets
+|-- public/
+|   `-- readme/                    # README screenshots and visual assets
 |-- src/
-|   |-- app/                        # App Router pages and route groups
-|   |   |-- (auth)/                 # Login route
-|   |   `-- (admin)/                # Protected dashboard routes
-|   |-- components/                 # UI and feature components
+|   |-- app/
+|   |   |-- (auth)/                # Login route
+|   |   `-- (admin)/               # Protected dashboard routes
+|   |-- components/
 |   |   |-- auth/
 |   |   |-- dashboard/
 |   |   |-- inventory/
@@ -96,32 +54,39 @@ frontend/
 |   |   |-- providers/
 |   |   |-- settings/
 |   |   `-- shared/
-|   |-- constants/                  # Static UI constants
-|   |-- hooks/                      # React Query hooks by feature
-|   |-- lib/                        # API paths, Axios, actions, schemas, helpers
-|   `-- types/                      # TypeScript API contracts
+|   |-- constants/
+|   |-- hooks/
+|   |-- lib/
+|   `-- types/
 |-- package.json
 |-- package-lock.json
-|-- vitest.config.ts
 `-- README.md
 ```
 
----
+## Data Flow
+
+```txt
+Page / Component
+  -> src/hooks/{feature}
+  -> src/lib/{feature}/actions
+  -> src/lib/axios-instance.ts
+  -> src/lib/api-paths.ts
+  -> Laravel API
+```
 
 ## Key Files
 
-- `src/lib/api-paths.ts`: Central backend endpoint registry
-- `src/lib/axios-instance.ts`: Shared Axios client and auth error handling
-- `src/components/providers/app-providers.tsx`: Query and UI providers
-- `src/hooks/inventory`: Inventory query and mutation hooks
-- `src/hooks/lookups`: Database-backed dropdown hooks
-- `src/lib/settings/actions`: Settings CRUD API actions and mutation options
-- `src/types`: Shared API and UI contracts
-- `src/test`: Vitest coverage for schemas, query keys, API helpers, and feature helpers
+| File | Purpose |
+| --- | --- |
+| `src/lib/api-paths.ts` | Central endpoint registry |
+| `src/lib/axios-instance.ts` | Shared Axios client, token injection, and 401 handling |
+| `src/components/providers/app-providers.tsx` | App-level providers |
+| `src/hooks/inventory` | Inventory queries and mutations |
+| `src/hooks/lookups` | Database-backed dropdown data |
+| `src/lib/settings/actions` | Settings API actions and mutation options |
+| `src/types` | Shared API and UI contracts |
 
----
-
-## Environment Variables
+## Environment
 
 Create `.env` from `.env.example`:
 
@@ -135,22 +100,7 @@ The backend must allow the frontend origin:
 http://localhost:3000
 ```
 
-Production API used by the deployed dashboard:
-
-```env
-NEXT_PUBLIC_API_BASE_URL=https://backend-test.hamzahamir.site/api
-```
-
----
-
 ## Getting Started
-
-### Prerequisites
-
-- Node.js 20+
-- Running Laravel API at `http://localhost:8000/api`
-
-### Setup
 
 ```bash
 cd frontend
@@ -164,64 +114,31 @@ Open:
 http://localhost:3000
 ```
 
-## Live Demo
-
-```txt
-https://test.hamzahamir.site
-```
-
-## Design Reference
-
-| Asset        | URL                                                                                  |
-| ------------ | ------------------------------------------------------------------------------------ |
-| Figma design | https://www.figma.com/design/dnTSLh378IvJRopqkbx752/test?m=auto&t=wF3BqhssfDjsLKFZ-1 |
-
----
-
 ## Routes
 
-| Route                     | Purpose                              |
-| ------------------------- | ------------------------------------ |
-| `/login`                  | Admin login                          |
-| `/dashboard`              | Inventory dashboard overview         |
-| `/inventory`              | Inventory table, filters, pagination |
-| `/inventory/new`          | Create inventory item                |
-| `/inventory/[id]/edit`    | Edit inventory item                  |
-| `/settings/categories`    | Category CRUD                        |
-| `/settings/subcategories` | Subcategory CRUD                     |
-| `/settings/units`         | Unit CRUD                            |
-| `/settings/suppliers`     | Supplier CRUD                        |
-
----
+| Route | Purpose |
+| --- | --- |
+| `/login` | Admin login |
+| `/dashboard` | Inventory dashboard overview |
+| `/inventory` | Inventory table, filters, and pagination |
+| `/inventory/new` | Create inventory item |
+| `/inventory/[id]/edit` | Edit inventory item |
+| `/settings/categories` | Category management |
+| `/settings/subcategories` | Subcategory management |
+| `/settings/units` | Unit management |
+| `/settings/suppliers` | Supplier management |
 
 ## API Integration
 
-The frontend currently uses the canonical backend paths under `/api`. The backend also supports `/api/v1` aliases, but the frontend keeps the stable canonical base URL unless a versioned client migration is needed.
+| Frontend area | API paths |
+| --- | --- |
+| Auth | `/auth/login`, `/auth/me`, `/auth/logout`, `/auth/refresh` |
+| Dashboard | `/dashboard/stats` |
+| Inventory | `/items`, `/items/{id}`, `/items/{id}/movements` |
+| Settings | `/categories`, `/subcategories`, `/units`, `/suppliers` |
+| Lookups | `/lookups/categories`, `/lookups/subcategories`, `/lookups/units`, `/lookups/suppliers` |
 
-| Frontend area | API paths                                                                               |
-| ------------- | --------------------------------------------------------------------------------------- |
-| Auth          | `/auth/login`, `/auth/me`, `/auth/logout`                                               |
-| Dashboard     | `/dashboard/stats`                                                                      |
-| Inventory     | `/items`, `/items/{id}`                                                                 |
-| Settings      | `/categories`, `/subcategories`, `/units`, `/suppliers`                                 |
-| Lookups       | `/lookups/categories`, `/lookups/subcategories`, `/lookups/units`, `/lookups/suppliers` |
-
----
-
-## Data Flow
-
-```txt
-Component
-  -> src/hooks/{feature}
-  -> src/lib/{feature}/actions
-  -> src/lib/axios-instance.ts
-  -> src/lib/api-paths.ts
-  -> Laravel API
-```
-
----
-
-## Build and Checks
+## Validation Commands
 
 ```bash
 npm run lint
@@ -230,23 +147,9 @@ npm run test
 npm run build
 ```
 
-These commands are also executed by the repository GitHub Actions workflow before code is accepted into the deployment branch.
+## Notes
 
----
-
-## CI/CD Quality Gate
-
-The frontend participates in the repository workflow at `.github/workflows/ci.yml`. The frontend job installs dependencies with `npm ci`, runs ESLint, verifies TypeScript with `tsc --noEmit`, runs Vitest, and produces a production Next.js build.
-
-Deployment is handled separately by Coolify. GitHub Actions is used as the quality gate that should pass before a pull request is merged into `main`.
-
----
-
-## Important Notes
-
-- Do not hardcode category, subcategory, unit, or supplier dropdown values.
-- Use lookup hooks for business dropdowns.
-- Use mutation hooks for create, update, and delete actions.
-- Keep route files clean and compose feature components.
-- Do not put raw API URLs in components.
-- Keep endpoint changes centralized in `src/lib/api-paths.ts`.
+- Keep business dropdown values database-driven through lookup hooks.
+- Keep raw URLs out of UI components.
+- Update `src/lib/api-paths.ts` when backend endpoint paths change.
+- Use feature hooks and mutation helpers instead of calling Axios directly from components.
