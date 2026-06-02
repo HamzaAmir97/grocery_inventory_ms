@@ -163,6 +163,38 @@ The repository workflow validates both applications before changes reach `main`.
 
 Backend validation includes dependency checks, PostgreSQL migrations, database seeding, OpenAPI generation, and Laravel/Pest coverage. Frontend validation includes ESLint, TypeScript checks, Vitest coverage, and a production Next.js build.
 
+### How the CI Gate Works
+
+Both backend and frontend checks must pass; PRs are blocked until all validations succeed.
+
+**When a check fails:**
+
+![CI Quality Gate - Checks Failed](./frontend/public/readme/ci-quality-gate-checks.png)
+
+- The PR shows "Review required" (blocking merge).
+- Details list which checks failed and why.
+- The author fixes the issue, pushes new commits, and checks re-run automatically.
+- Once fixed, the same PR updates to show all checks passing.
+
+**When all checks pass:**
+
+![CI Quality Gate - All Checks Passed](./frontend/public/readme/ci-quality-gate-checks1.png)
+
+- The PR shows "All checks have passed" (green checkmarks).
+- Both backend and frontend validations succeeded.
+- "No conflicts with base branch" allows immediate merge.
+- Click "Merge pull request" to move changes to `main`.
+
+### CI Checks Included
+
+| Service | Checks |
+| --- | --- |
+| **Backend** | Dependency checks, PostgreSQL migrations, database seeding, OpenAPI generation, Laravel/Pest test coverage |
+| **Frontend** | ESLint linting, TypeScript strict mode, Vitest unit tests, production Next.js build |
+| **Quality Gate** | Overall pass/fail decision (blocks merge until both services pass) |
+
+Checks are fast (typically 1–3 minutes). Failed checks show detailed logs so you can fix issues quickly.
+
 ## Notes
 
 - Protected API endpoints require `Authorization: Bearer <token>`.
