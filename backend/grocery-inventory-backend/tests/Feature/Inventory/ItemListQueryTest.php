@@ -86,6 +86,18 @@ it('filters by foreign keys, supports unknown ids as empty lists, and validates 
         ->assertJsonStructure(['errors' => ['category_id']]);
 });
 
+it('accepts the boolean low_stock filter as the string sent by the frontend', function () {
+    $lowStockData = $this->withHeaders($this->headers)->getJson('/api/items?low_stock=true&per_page=100')
+        ->assertSuccessful()
+        ->json('data');
+
+    expect($lowStockData)->not->toBeEmpty();
+
+    collect($lowStockData)->each(function (array $item): void {
+        expect($item['stock_quantity'])->toBeLessThanOrEqual($item['low_stock_threshold']);
+    });
+});
+
 it('filters low stock, sorts allowlisted fields, rejects bad sort fields, and defaults newest first', function () {
     $lowStockData = $this->withHeaders($this->headers)->getJson('/api/items?low_stock=1&per_page=100')
         ->assertSuccessful()
