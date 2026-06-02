@@ -956,10 +956,10 @@ input, select, textarea { font-family: inherit; }
 
 /* Item wizard */
 .item-wizard {
-  width: min(100%, 700px);
+  width: min(100%, 880px);
   margin: 0 auto;
   display: grid;
-  gap: 16px;
+  gap: 20px;
 }
 .wizard-stepper-card,
 .item-wizard-card {
@@ -970,14 +970,17 @@ input, select, textarea { font-family: inherit; }
   box-shadow: none;
   overflow: hidden;
 }
-.wizard-stepper-card { padding: 20px 72px 17px; }
-.item-wizard .field-label { font-size: 12px; color: #45556c; }
+.wizard-stepper-card {
+  min-height: 132px;
+  padding: 26px 96px 22px;
+}
+.item-wizard .field-label { font-size: 14px; color: #45556c; }
 .item-wizard .input,
 .item-wizard .select,
 .item-wizard .textarea {
   border-color: #e2e8f0;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 15px;
 }
 
 /* Stepper */
@@ -992,16 +995,16 @@ input, select, textarea { font-family: inherit; }
   display: grid;
   justify-items: center;
   text-align: center;
-  row-gap: 2px;
+  row-gap: 3px;
 }
 .wizard-step:not(:last-child)::after {
   content: "";
   position: absolute;
   z-index: 0;
-  top: 16px;
-  left: calc(50% + 18px);
-  width: calc(100% - 36px);
-  height: 2px;
+  top: 20px;
+  left: calc(50% + 24px);
+  width: calc(100% - 48px);
+  height: 3px;
   border-radius: 999px;
   background: #dfe5ec;
 }
@@ -1009,38 +1012,39 @@ input, select, textarea { font-family: inherit; }
 .wizard-step-circle {
   position: relative;
   z-index: 1;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 800;
   line-height: 1;
 }
 .wizard-step-circle.done { background: #10b981; color: #ffffff; }
-.wizard-step-circle.active { background: #f97316; color: #ffffff; box-shadow: 0 0 0 6px #ffedd5; }
+.wizard-step-circle.active { background: #f97316; color: #ffffff; box-shadow: 0 0 0 8px #ffedd5; }
 .wizard-step-circle.todo { background: #ffffff; border: 1px solid #dbe4ee; color: #90a1b9; }
 .wizard-step-circle.error { background: var(--color-danger); color: #ffffff; box-shadow: 0 0 0 4px var(--color-danger-soft); }
 .wizard-step-label {
-  margin-top: 10px;
+  margin-top: 15px;
   min-width: 0;
   color: #1d293d;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.15;
   white-space: nowrap;
 }
+.wizard-step-label.done { color: #059669; }
 .wizard-step-label.active,
 .wizard-step-label.error { color: #f97316; }
 .wizard-step-label.todo { color: #90a1b9; }
 .wizard-step-subtitle {
   min-width: 0;
   color: #b6c2d2;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 600;
-  line-height: 1.1;
+  line-height: 1.2;
   white-space: nowrap;
 }
 
@@ -1061,8 +1065,8 @@ input, select, textarea { font-family: inherit; }
   min-width: 0;
 }
 .wizard-current-step-badge {
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
@@ -1070,27 +1074,27 @@ input, select, textarea { font-family: inherit; }
   flex: 0 0 auto;
   background: #ffedd5;
   color: #f97316;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 800;
 }
 .wizard-card-title {
   margin: 0;
   color: #1d293d;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 800;
   line-height: 1.2;
 }
 .wizard-card-subtitle {
   margin: 2px 0 0;
   color: #90a1b9;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   line-height: 1.2;
 }
 .wizard-step-count {
   flex: 0 0 auto;
   color: #90a1b9;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
 }
 .wizard-card-body { padding: 44px 22px 38px; }
@@ -1114,13 +1118,13 @@ input, select, textarea { font-family: inherit; }
 /* Review summary */
 .review-confirm {
   display: grid;
-  gap: 10px;
+  gap: 12px;
 }
 .review-alert {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px;
+  padding: 16px 18px;
   border: 1px solid #fed7aa;
   border-radius: 8px;
   background: #fff8e8;
@@ -1128,8 +1132,8 @@ input, select, textarea { font-family: inherit; }
 }
 .review-alert-icon,
 .review-section-icon {
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
   border-radius: 999px;
   display: inline-flex;
   align-items: center;
@@ -1141,14 +1145,14 @@ input, select, textarea { font-family: inherit; }
 .review-alert-title {
   margin: 0;
   color: #f97316;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
   line-height: 1.25;
 }
 .review-alert-copy {
   margin: 1px 0 0;
   color: #fb5b12;
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 600;
   line-height: 1.25;
 }
@@ -1159,12 +1163,12 @@ input, select, textarea { font-family: inherit; }
   overflow: hidden;
 }
 .review-section-header {
-  min-height: 40px;
+  min-height: 52px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 10px 12px;
+  padding: 12px 16px;
   background: #fbfcfe;
 }
 .review-section-title {
@@ -1173,7 +1177,7 @@ input, select, textarea { font-family: inherit; }
   gap: 8px;
   min-width: 0;
   color: #1d293d;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
   line-height: 1.2;
 }
@@ -1185,7 +1189,7 @@ input, select, textarea { font-family: inherit; }
   border: 0;
   background: transparent;
   color: #f97316;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   line-height: 1;
   cursor: pointer;
@@ -1194,10 +1198,10 @@ input, select, textarea { font-family: inherit; }
 .review-edit-button:focus-visible { outline: none; box-shadow: var(--shadow-ring-accent); border-radius: 4px; }
 .review-section-body {
   display: grid;
-  padding: 8px 12px 10px;
+  padding: 10px 16px 14px;
 }
 .review-row {
-  min-height: 24px;
+  min-height: 32px;
   display: grid;
   grid-template-columns: minmax(92px, 1fr) minmax(0, 1.4fr);
   align-items: center;
@@ -1206,28 +1210,28 @@ input, select, textarea { font-family: inherit; }
 .review-row + .review-row { border-top: 1px solid #f3f6f9; }
 .review-label {
   color: #90a1b9;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
   line-height: 1.2;
 }
 .review-value {
   min-width: 0;
   color: #334155;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   line-height: 1.35;
   text-align: right;
   overflow-wrap: anywhere;
 }
 .review-value .pill {
-  padding: 2px 6px;
-  gap: 3px;
-  font-size: 9px;
+  padding: 4px 8px;
+  gap: 5px;
+  font-size: 11px;
   font-weight: 800;
 }
 .review-value .pill-dot {
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
 }
 .review-stock-meter {
   display: grid;
@@ -1235,7 +1239,7 @@ input, select, textarea { font-family: inherit; }
   margin-top: 8px;
   padding: 8px;
   border-radius: 8px;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 800;
 }
 .review-stock-meter.healthy {
@@ -1284,10 +1288,10 @@ input, select, textarea { font-family: inherit; }
 .wizard-footer-start { justify-self: start; }
 .wizard-footer-end { justify-self: end; }
 .wizard-footer .btn {
-  min-height: 26px;
-  padding: 5px 12px;
+  min-height: 34px;
+  padding: 7px 14px;
   border-radius: 6px;
-  font-size: 11px;
+  font-size: 12px;
   gap: 5px;
 }
 .wizard-save-button.btn-primary {
@@ -1316,20 +1320,47 @@ input, select, textarea { font-family: inherit; }
 }
 
 @media (max-width: 760px) {
-  .wizard-stepper-card { padding: 18px 28px 15px; }
+  .wizard-stepper-card {
+    min-height: 116px;
+    padding: 22px 34px 18px;
+  }
+  .wizard-step:not(:last-child)::after {
+    top: 18px;
+    left: calc(50% + 21px);
+    width: calc(100% - 42px);
+  }
+  .wizard-step-circle {
+    width: 36px;
+    height: 36px;
+  }
+  .wizard-step-label {
+    margin-top: 12px;
+    font-size: 12px;
+  }
+  .wizard-step-subtitle { font-size: 9px; }
 }
 
 @media (max-width: 480px) {
-  .wizard-stepper-card { padding: 14px 10px 12px; }
+  .wizard-stepper-card {
+    min-height: auto;
+    padding: 16px 12px 14px;
+  }
   .wizard-step:not(:last-child)::after {
+    top: 13px;
     left: calc(50% + 12px);
     width: calc(100% - 24px);
+    height: 2px;
   }
   .wizard-step-circle {
-    width: 22px;
-    height: 22px;
+    width: 26px;
+    height: 26px;
+    font-size: 11px;
   }
-  .wizard-step-label { font-size: 8px; }
+  .wizard-step-circle.active { box-shadow: 0 0 0 5px #ffedd5; }
+  .wizard-step-label {
+    margin-top: 9px;
+    font-size: 10px;
+  }
   .wizard-step-subtitle { display: none; }
   .wizard-card-header {
     align-items: flex-start;

@@ -11,7 +11,7 @@ export function Stepper({ step, errors }: { step: number; errors: Partial<Record
         return (
           <div key={item.label} className={`wizard-step ${state} ${index < step ? "connector-done" : ""}`} aria-current={index === step ? "step" : undefined}>
             <span className={`wizard-step-circle ${state}`}>
-              {state === "done" ? <IconCheck size={14} stroke={2.5} /> : index + 1}
+              {state === "done" ? <IconCheck size={18} stroke={2.5} /> : index + 1}
             </span>
             <span className={`wizard-step-label ${state}`}>{item.shortLabel}</span>
             <span className="wizard-step-subtitle">{item.subtitle}</span>
