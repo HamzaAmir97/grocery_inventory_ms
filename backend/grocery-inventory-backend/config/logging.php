@@ -22,6 +22,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Inventory CLI mirror
+    |--------------------------------------------------------------------------
+    |
+    | When true, the ApiRequestLogger middleware also mirrors each request line
+    | to stderr via error_log() (useful when running the bundled serve command).
+    | Read via config() so it survives `php artisan config:cache` in production.
+    |
+    */
+
+    'inventory_cli' => env('INVENTORY_CLI_LOGS', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Deprecations Log Channel
     |--------------------------------------------------------------------------
     |

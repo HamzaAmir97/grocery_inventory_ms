@@ -29,7 +29,7 @@ abstract class ItemRequest extends FormRequest
 
         return [
             'name' => [...$required, 'string', 'max:255'],
-            'sku' => [...$sometimes, 'nullable', 'string', 'max:64', Rule::unique('items', 'sku')->ignore($itemId)],
+            'sku' => [...$sometimes, 'nullable', 'string', 'max:64', Rule::unique('items', 'sku')->ignore($itemId)->whereNull('deleted_at')],
             'category_id' => [...$required, 'bail', 'integer', Rule::exists('categories', 'id'), $this->matchingCategoryRule()],
             'subcategory_id' => [...$required, 'bail', 'integer', Rule::exists('subcategories', 'id'), $this->matchingSubcategoryRule()],
             'unit_id' => [...$required, 'integer', Rule::exists('units', 'id')],

@@ -10,7 +10,7 @@ beforeEach(function () {
 it('lists, paginates, creates, shows, updates, and deletes units', function () {
     $this->withHeaders($this->headers)->getJson('/api/units')->assertSuccessful()->assertJsonPath('meta.total', 4);
     $this->withHeaders($this->headers)->getJson('/api/units?per_page=3')->assertSuccessful()->assertJsonCount(3, 'data')->assertJsonPath('meta.per_page', 3);
-    $this->withHeaders($this->headers)->getJson('/api/units?per_page=999')->assertSuccessful()->assertJsonPath('meta.per_page', 100);
+    $this->withHeaders($this->headers)->getJson('/api/units?per_page=999')->assertUnprocessable()->assertJsonValidationErrors('per_page');
     $this->withHeaders($this->headers)->getJson('/api/units?page=9999')->assertSuccessful()->assertJsonCount(0, 'data');
 
     $unitId = $this->withHeaders($this->headers)->postJson('/api/units', ['name' => 'Box', 'symbol' => 'box'])->assertCreated()->json('data.id');
