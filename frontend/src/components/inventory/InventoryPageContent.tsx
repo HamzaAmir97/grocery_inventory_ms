@@ -110,6 +110,7 @@ export function InventoryPageContent() {
                 total={meta.total}
                 perPage={meta.per_page}
                 onChange={setPage}
+                onPerPageChange={(per_page) => updateFilters({ per_page })}
               />
             </>
           )

@@ -196,13 +196,14 @@ export function SettingsScreen<T extends SettingBase>({
           )
         ) : null}
 
-        {meta && meta.last_page > 1 ? (
+        {meta && meta.total > 0 ? (
           <Pagination
             page={meta.current_page}
             lastPage={meta.last_page}
             total={meta.total}
             perPage={meta.per_page}
             onChange={(page) => onFiltersChange({ ...filters, page })}
+            onPerPageChange={(per_page) => onFiltersChange({ ...filters, per_page, page: 1 })}
           />
         ) : null}
       </div>
