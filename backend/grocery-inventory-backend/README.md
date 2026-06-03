@@ -15,11 +15,11 @@ The Laravel REST API powering authentication, inventory operations, settings dat
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Relational_Data-336791?logo=postgresql)](https://www.postgresql.org/)
 [![JWT](https://img.shields.io/badge/JWT-Authentication-111827)](https://jwt.io/)
 [![Swagger](https://img.shields.io/badge/Swagger-OpenAPI-85EA2D?logo=swagger)](https://swagger.io/)
-[![CI Quality Gate](https://github.com/HamzaAmir97/inventory_managment_system/actions/workflows/ci.yml/badge.svg)](https://github.com/HamzaAmir97/inventory_managment_system/actions/workflows/ci.yml)
+[![CI Quality Gate](https://github.com/HamzaAmir97/grocery_inventory_ms/actions/workflows/ci.yml/badge.svg)](https://github.com/HamzaAmir97/grocery_inventory_ms/actions/workflows/ci.yml)
 
 </div>
 
-![Backend CLI workflow](./docs/assets/backend-cli-banner.svg)
+<img src="./docs/assets/backend-cli-banner.svg" alt="Backend CLI workflow" style="border-radius: 12px;" />
 
 ## Overview
 
@@ -27,11 +27,17 @@ The backend is the source of truth for the inventory platform. It manages JWT au
 
 The API exposes canonical `/api/*` endpoints and versioned `/api/v1/*` aliases so the frontend can use stable routes while future clients can migrate to a versioned surface.
 
+## API Landing Page
+
+The API root renders a branded landing page that mirrors the frontend identity — warm-orange palette, gradient actions, and Nunito type — with quick links to the Swagger documentation and live service status.
+
+<img src="./docs/assets/backend-landing.png" alt="Backend API landing page" style="border-radius: 12px; border: 1px solid #e2e8f0;" />
+
 ## Server Startup Banner
 
 `php artisan inventory:serve` boots the API behind a branded, unified CLI banner that matches the frontend — with live service details, the API base, and the Swagger documentation URL.
 
-![Backend API server banner](./docs/assets/cli-backend.png)
+<img src="./docs/assets/cli-backend.png" alt="Backend API server banner" style="border-radius: 12px; border: 1px solid #e2e8f0;" />
 
 ```bash
 php artisan inventory:serve
