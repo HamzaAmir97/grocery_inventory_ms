@@ -1,6 +1,6 @@
 <div align="center">
 
-![Grocery Inventory Management System](./frontend/public/readme/project-banner.svg)
+<img src="./frontend/public/readme/project-banner.svg" alt="Grocery Inventory Management System" style="border-radius: 16px;" />
 
 # Grocery Inventory Management System
 
@@ -47,7 +47,7 @@ Grocery Inventory Management System combines a polished Next.js admin dashboard 
 
 Business dropdowns such as categories, subcategories, units, and suppliers are loaded from the database through API endpoints. This keeps the admin experience flexible and keeps business data out of the UI code.
 
-![Dashboard overview](./frontend/public/readme/dashboard-overview.png)
+<img src="./frontend/public/readme/dashboard-overview.png" alt="Dashboard overview" style="border-radius: 14px; border: 1px solid #e2e8f0;" />
 
 ---
 
@@ -94,7 +94,7 @@ The **frontend** owns presentation, routing, form state, and server-state orches
 
 **Next.js 16 · React 19 · TypeScript · Tailwind CSS · TanStack Query** — the admin dashboard with protected routes, fast inventory workflows, settings screens, and dashboard charts. The dev and production servers print a branded banner with live environment, local and network URLs, and the API base.
 
-![Frontend dev server banner](./frontend/public/readme/cli-frontend.png)
+<img src="./frontend/public/readme/cli-frontend.png" alt="Frontend dev server banner" style="border-radius: 14px; border: 1px solid #e2e8f0;" />
 
 [![Explore the Frontend](https://img.shields.io/badge/Explore%20the%20Frontend%20%E2%86%92-2563EB?style=for-the-badge&logo=nextdotjs&logoColor=white)](./frontend/README.md)
 
@@ -102,7 +102,7 @@ The **frontend** owns presentation, routing, form state, and server-state orches
 
 **Laravel 13 · PHP 8.4 · PostgreSQL · JWT · Swagger / OpenAPI** — the REST API owning authentication, validation, persistence, stock movement history, dashboard aggregation, and documented contracts. `inventory:serve` boots the API behind the matching banner, with the API base and Swagger docs URL.
 
-![Backend API server banner](./frontend/public/readme/cli-backend.png)
+<img src="./frontend/public/readme/cli-backend.png" alt="Backend API server banner" style="border-radius: 14px; border: 1px solid #e2e8f0;" />
 
 [![Explore the Backend](https://img.shields.io/badge/Explore%20the%20Backend%20%E2%86%92-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](./backend/grocery-inventory-backend/README.md)
 
@@ -207,14 +207,14 @@ The GitHub Actions workflow validates **both** applications before any change re
 
 **When a check fails — "Review required" (merge blocked):**
 
-![CI Quality Gate - Checks Failed](./frontend/public/readme/ci-quality-gate-checks.png)
+<img src="./frontend/public/readme/ci-quality-gate-checks.png" alt="CI Quality Gate - Checks Failed" style="border-radius: 14px; border: 1px solid #e2e8f0;" />
 
 - The PR shows "Review required" with a red ✗ badge and "Merging is blocked".
 - The author fixes the issue, pushes new commits, and checks re-run automatically.
 
 **When all checks pass — "All checks have passed" (ready to merge):**
 
-![CI Quality Gate - All Checks Passed](./frontend/public/readme/ci-quality-gate-checks1.png)
+<img src="./frontend/public/readme/ci-quality-gate-checks1.png" alt="CI Quality Gate - All Checks Passed" style="border-radius: 14px; border: 1px solid #e2e8f0;" />
 
 Checks are fast (typically 1–3 minutes) and surface detailed logs for quick fixes.
 
